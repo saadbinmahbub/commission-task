@@ -1,6 +1,6 @@
 <?php
 
-namespace Acme;
+namespace Acme\CommissionTask;
 
 class App
 {
@@ -14,8 +14,8 @@ class App
     /**
      * Bind a new key/value into the container.
      *
-     * @param  string $key
-     * @param  mixed  $value
+     * @param string $key
+     * @param mixed $value
      */
     public static function bind(string $key, $value)
     {
@@ -25,11 +25,11 @@ class App
     /**
      * Retrieve a value from the registry.
      *
-     * @param  string $key
+     * @param string $key
      */
     public static function get(string $key)
     {
-        if (! array_key_exists($key, static::$registry)) {
+        if ( ! array_key_exists($key, static::$registry)) {
             throw new Exception("No {$key} is bound in the container.");
         }
 
