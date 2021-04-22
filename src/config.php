@@ -34,7 +34,7 @@ return [
     |
     */
 
-    'currencies'             => [
+    'currencies'                  => [
         'EUR',
         'JPY',
         'USD'
@@ -48,7 +48,8 @@ return [
     | Exchange rate api variables
     |
     */
-    'exchange_rates_api_driver' => 'Acme\CommissionTask\Helpers\APICurrencyExchangeRate',
-    'exchange_rates_api_url'        => 'https://api.exchangeratesapi.io/v1',
-    'exchange_rates_api_key'    => '3e21f78269b8c12dea3a824dba5f6af9'
+    'exchange_rates_api_driver'   => 'Acme\CommissionTask\Helpers\APICurrencyExchangeRate',
+    'exchange_rates_api_url'      => 'https://api.exchangeratesapi.io/v1/',
+    'exchange_rates_api_endpoint' => 'latest',
+    'exchange_rates_api_key'      => '3e21f78269b8c12dea3a824dba5f6af9'
 ];
