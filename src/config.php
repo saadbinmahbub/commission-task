@@ -4,14 +4,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Name
+    | Application Base Currency
     |--------------------------------------------------------------------------
     |
-    | This is a sample value in the configuration file
+    | Configuration for the application's base currency
     |
     */
 
-    'name' => '',
+    'base_currency' => 'EUR',
 
     /*
     |--------------------------------------------------------------------------
@@ -22,7 +22,7 @@ return [
     |
     */
 
-    'transactions_driver' => 'Acme\CommissionTask\Helpers\CSVTransactionFileParser',
+    'transactions_data_driver' => 'Acme\CommissionTask\Helpers\CSVTransactionFileParser',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,9 +34,21 @@ return [
     |
     */
 
-    'currencies' => [
+    'currencies'             => [
         'EUR',
         'JPY',
         'USD'
-    ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Exchange Rate API
+    |--------------------------------------------------------------------------
+    |
+    | Exchange rate api variables
+    |
+    */
+    'exchange_rates_api_driver' => 'Acme\CommissionTask\Helpers\APICurrencyExchangeRate',
+    'exchange_rates_api_url'        => 'https://api.exchangeratesapi.io/v1',
+    'exchange_rates_api_key'    => '3e21f78269b8c12dea3a824dba5f6af9'
 ];
