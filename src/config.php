@@ -7,9 +7,7 @@ return [
     | Application Name
     |--------------------------------------------------------------------------
     |
-    | This value is the name of your application. This value is used when the
-    | framework needs to place the application's name in a notification or
-    | any other location as required by the application or its packages.
+    | This is a sample value in the configuration file
     |
     */
 
@@ -24,5 +22,21 @@ return [
     |
     */
 
-    'transactions_driver' => 'Acme\CommissionTask\Helpers\CSVTransactionFileParser'
+    'transactions_driver' => 'Acme\CommissionTask\Helpers\CSVTransactionFileParser',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Currencies
+    |--------------------------------------------------------------------------
+    |
+    | Array of currencies the system will handle,
+    | add to the array if new currency needs to be added
+    |
+    */
+
+    'currencies' => [
+        'EUR',
+        'JPY',
+        'USD'
+    ]
 ];
