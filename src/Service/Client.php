@@ -6,7 +6,10 @@ namespace Acme\CommissionTask\Service;
 
 abstract class Client
 {
-    abstract public function calculateDepositCommissionFee(float $amount): float;
+    protected $depositCommissionFeeRate;
+    protected $withdrawalCommissionFeeRate;
 
-    abstract public function calculateWithdrawalCommissionFee(float $amount): float;
+    abstract public function calculateDepositCommissionFee(Transaction $transaction): float;
+
+    abstract public function calculateWithdrawalCommissionFee(Transaction $transaction): float;
 }

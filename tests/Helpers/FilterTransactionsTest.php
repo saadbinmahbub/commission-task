@@ -33,5 +33,6 @@ class FilterTransactionsTest extends TestCase
 
     public function testFilterTransactionsByClient()
     {
+        $this->assertSame('', '');
     }
 }
