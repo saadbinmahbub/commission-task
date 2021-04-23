@@ -33,7 +33,7 @@ class APICurrencyExchangeRate implements CurrencyExchangeRate
             '&base=' .
             $this->baseCurrency .
             '&symbols=' .
-            $this->supportedCurrencies
+            implode(',', $this->supportedCurrencies)
         );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
