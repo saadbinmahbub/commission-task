@@ -3,4 +3,9 @@
 require 'vendor/autoload.php';
 require 'src/bootstrap.php';
 
-return "hello";
+if (defined('PHPUNIT_COMMISSION_TESTSUITE') && PHPUNIT_COMMISSION_TESTSUITE)
+{
+    return 'hello';
+} else {
+    echo 'hello';
+}

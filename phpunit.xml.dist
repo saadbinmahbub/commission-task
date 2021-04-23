@@ -24,4 +24,7 @@
             <directory>./src</directory>
         </whitelist>
     </filter>
+    <php>
+        <const name="PHPUNIT_COMMISSION_TESTSUITE" value="true"/>
+    </php>
 </phpunit>
