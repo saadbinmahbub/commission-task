@@ -19,7 +19,7 @@ App::bind(
  * Bind Exchange Rates to the application
  * It's better to call the API only once during the lifetime of the application
  */
-$exchangeRatesDriverClass = (App::get('config'))['exchange_rates_api_driver'];
+$exchangeRatesDriverClass = (App::get('config'))['exchange_rates']['driver'];
 App::bind(
     'exchange_rates',
     (new $exchangeRatesDriverClass())->getRates()
