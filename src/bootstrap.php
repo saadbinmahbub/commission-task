@@ -18,8 +18,8 @@ App::bind(
 /**
  * Bind Exchange Rates API instance in the application
  */
-$exchangeRatesAPIClass = (App::get('config'))['exchange_rates_api_driver'];
+$exchangeRatesDriverClass = (App::get('config'))['exchange_rates_api_driver'];
 App::bind(
     'exchange_rates',
-    (new $exchangeRatesAPIClass())->getRates()
+    (new $exchangeRatesDriverClass())->getRates()
 );
