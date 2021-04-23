@@ -1,20 +1,15 @@
 <?php
 
-//declare(strict_types=1);
-//
-//namespace Acme\CommissionTask\Service;
-//
-//class Math
-//{
-//    private $scale;
-//
-//    public function __construct(int $scale)
-//    {
-//        $this->scale = $scale;
-//    }
-//
-//    public function add(string $leftOperand, string $rightOperand): string
-//    {
-//        return bcadd($leftOperand, $rightOperand, $this->scale);
-//    }
-//}
+declare(strict_types=1);
+
+namespace Acme\CommissionTask\Service;
+
+class Math
+{
+    public static function roundUp($value, $precision): string
+    {
+        $pow = pow(10, $precision);
+        $value = (ceil($pow * $value) + ceil($pow * $value - ceil($pow * $value))) / $pow;
+        return number_format($value, 2);
+    }
+}
