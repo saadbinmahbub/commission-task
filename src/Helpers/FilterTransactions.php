@@ -5,23 +5,32 @@ declare(strict_types=1);
 namespace Acme\CommissionTask\Helpers;
 
 use Acme\CommissionTask\App;
+use Acme\CommissionTask\Service\Transaction;
+use Carbon\Carbon;
 
 class FilterTransactions
 {
-    private $transactions;
-
-    public function __construct()
+//    private $transactions;
+//
+//    public function __construct()
+//    {
+//        $this->transactions = App::get('transactions');
+//    }
+    public static function findAllWithdrawalsBefore(Transaction $currentTransaction, int $currentIndex): array
     {
-        $this->transactions = App::get('transactions');
-    }
-
-    public function filterTransactionsByClient(int $client): array
-    {
+        $transactions = App::get('transactions');
         return array_filter(
-            $this->transactions,
-            function ($transaction) {
-                return $transaction->client == 4;
-            }
+            $transactions,
+            function ($transaction, $index) use ($currentTransaction, $currentIndex) {
+                return $currentIndex > $index &&
+                    $transaction->getOperation = 'withdraw' &&
+                        $transaction->getClient() == $currentTransaction->getClient() &&
+                        (Carbon::create($currentTransaction->getDate()))
+                            ->startOfWeek()->add(2, 'days')->eq(
+                                Carbon::create($transaction->getDate())->startOfWeek()->add(2, 'days')
+                            );
+            },
+            ARRAY_FILTER_USE_BOTH
         );
     }
 }
