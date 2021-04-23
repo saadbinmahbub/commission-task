@@ -4,12 +4,19 @@
 namespace Acme\CommissionTask\Service;
 
 
+use Acme\CommissionTask\App;
+
 class BusinessClient extends Client
 {
+    public function __construct()
+    {
+        $this->depositCommissionFeeRate = App::get('config')['business']['deposit_rate'];
+        $this->withdrawalCommissionFeeRate = App::get('config')['business']['withdrawal_rate'];
+    }
+
     public function calculateDepositCommissionFee(Transaction $transaction): float
     {
-        // TODO: Implement calculateDepositCommissionFee() method.
-        return 0.0;
+        return $transaction->getAmount() * $this->depositCommissionFeeRate / 100;
     }
 
     public function calculateWithdrawalCommissionFee(Transaction $transaction): float
