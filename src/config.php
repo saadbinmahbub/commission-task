@@ -60,19 +60,16 @@ return [
     | Transaction rules
     |--------------------------------------------------------------------------
     |
-    | Configuration for transaction rules:
-    | Deposit commission percentage for private clients
-    | Deposit commission percentage for business clients
-    | Withdrawal commission percentage for private clients
-    | Withdrawal commission percentage for private clients
+    | Configuration for transaction rules
+    | for Private and Business clients
     |
     */
     'private' => [
-        'deposit_commission' => 0.03,
-        'withdrawal_commission' => 0.3
+        'deposit_rate' => 0.03,
+        'withdrawal_rate' => 0.3
     ],
     'business' => [
-        'deposit_commission' => 0.03,
-        'withdrawal_commission' => 0.5
+        'deposit_rate' => 0.03,
+        'withdrawal_rate' => 0.5
     ]
 ];
