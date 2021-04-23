@@ -65,8 +65,12 @@ return [
     | Withdrawal commission percentage for private clients
     |
     */
-    'deposit_commission_private' => 0.03,
-    'deposit_commission_business' => 0.03,
-    'withdrawal_commission_private' => 0.3,
-    'withdrawal_commission_business' => 0.5
+    'private' => [
+        'deposit_commission' => 0.03,
+        'withdrawal_comission' => 0.3
+    ],
+    'business' => [
+        'deposit_commission' => 0.03,
+        'withdrawal_comission' => 0.5
+    ]
 ];
