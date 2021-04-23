@@ -48,8 +48,28 @@ return [
     | Exchange rate api variables
     |
     */
-    'exchange_rates_api_driver' => 'Acme\CommissionTask\Helpers\APICurrencyExchangeRate',
-    'exchange_rates_api_url' => 'http://api.exchangeratesapi.io/v1/',
-    'exchange_rates_api_endpoint' => 'latest',
-    'exchange_rates_api_key' => '3e21f78269b8c12dea3a824dba5f6af9'
+    'exchange_rates' => [
+        'driver' => 'Acme\CommissionTask\Helpers\APICurrencyExchangeRate',
+        'url' => 'http://api.exchangeratesapi.io/v1/',
+        'endpoint' => 'latest',
+        'key' => '3e21f78269b8c12dea3a824dba5f6af9',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Transaction rules
+    |--------------------------------------------------------------------------
+    |
+    | Configuration for transaction rules
+    | for Private and Business clients
+    |
+    */
+    'private' => [
+        'deposit_rate' => 0.03,
+        'withdrawal_rate' => 0.3
+    ],
+    'business' => [
+        'deposit_rate' => 0.03,
+        'withdrawal_rate' => 0.5
+    ]
 ];
