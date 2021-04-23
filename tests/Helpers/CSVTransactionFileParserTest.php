@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Acme\CommissionTask\Tests\Service;
+namespace Acme\CommissionTask\Tests\Helpers;
 
 use Acme\CommissionTask\Helpers\CSVTransactionFileParser;
 use Acme\CommissionTask\Service\Transaction;
