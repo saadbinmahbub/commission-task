@@ -8,7 +8,6 @@ use Acme\CommissionTask\Service\Transaction;
 
 class CSVTransactionFileParser implements TransactionFileParser
 {
-
     public function parse(string $file): array
     {
         $transactions = [];
