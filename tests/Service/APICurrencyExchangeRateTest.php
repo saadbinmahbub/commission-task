@@ -16,9 +16,9 @@ class APICurrencyExchangeRateTest extends TestCase
     {
         App::bind('config', require './src/config.php');
         $this->apiCurrencyExchangeRate = new APICurrencyExchangeRate(
-            App::get('config')['exchange_rates_api_url'],
-            App::get('config')['exchange_rates_api_endpoint'],
-            App::get('config')['exchange_rates_api_key']
+            App::get('config')['exchange_rates']['url'],
+            App::get('config')['exchange_rates']['endpoint'],
+            App::get('config')['exchange_rates']['key']
         );
     }
 
