@@ -14,21 +14,32 @@ class BusinessClientTest extends TestCase
 {
     private $client;
     private $depositCommissionFeeRate;
-    private $transaction;
+    private $withdrawalCommissionFeeRate;
 
     public function setUp()
     {
         App::bind('config', require './src/config.php');
         $this->client = (new ClientFactory())->getClient('business');
         $this->depositCommissionFeeRate = App::get('config')['business']['deposit_rate'];
-        $this->transaction = new Transaction(['2014-12-31', 4, 'business', 'withdraw', 1200.00, 'EUR']);
+        $this->withdrawalCommissionFeeRate = App::get('config')['business']['withdrawal_rate'];
     }
 
     public function testCalculateDepositCommissionFee()
     {
-        $commissionFee = $this->client->calculateDepositCommissionFee($this->transaction);
+        $transaction = new Transaction(['2014-12-31', 4, 'private', 'deposit', 1200.00, 'EUR']);
+        $commissionFee = $this->client->calculateDepositCommissionFee($transaction);
         $this->assertSame(
-            $this->transaction->getAmount() * $this->depositCommissionFeeRate / 100,
+            $transaction->getAmount() * $this->depositCommissionFeeRate / 100,
+            $commissionFee
+        );
+    }
+
+    public function testCalculateWithdrawalCommissionFee()
+    {
+        $transaction = new Transaction(['2014-12-31', 4, 'private', 'withdrawal', 1200.00, 'EUR']);
+        $commissionFee = $this->client->calculateWithdrawalCommissionFee($transaction);
+        $this->assertSame(
+            $transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100,
             $commissionFee
         );
     }
