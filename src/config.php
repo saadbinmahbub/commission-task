@@ -57,10 +57,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Transaction rules
+    | Commission fee configuration for transactions
     |--------------------------------------------------------------------------
     |
-    | Configuration for transaction rules
+    | Configuration for calculating commission fees
     | for Private and Business clients
     |
     */
