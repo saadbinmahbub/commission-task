@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class CSVTransactionFileParserTest extends TestCase
 {
-    /**
-     * @var CSVTransactionFileParser
-     */
     private $csvTransactionFileParser;
     private $csvFile;
     private $expectedTransactionArray;
@@ -20,7 +17,7 @@ class CSVTransactionFileParserTest extends TestCase
     public function setUp()
     {
         $this->csvTransactionFileParser = new CSVTransactionFileParser();
-        $this->csvFile                  = 'transactions.csv';
+        $this->csvFile = 'transactions.csv';
         $this->expectedTransactionArray = [
             new Transaction(['2014-12-31', 4, 'private', 'withdraw', 1200.00, 'EUR']),
             new Transaction(['2015-01-01', 4, 'private', 'withdraw', 1000.00, 'EUR']),

@@ -15,11 +15,11 @@ class Transaction
 
     public function __construct($transaction)
     {
-        $this->date       = $transaction[0];
-        $this->client     = $transaction[1];
+        $this->date = $transaction[0];
+        $this->client = $transaction[1];
         $this->clientType = $transaction[2];
-        $this->operation  = $transaction[3];
-        $this->amount     = $transaction[4];
-        $this->currency   = $transaction[5];
+        $this->operation = $transaction[3];
+        $this->amount = $transaction[4];
+        $this->currency = $transaction[5];
     }
 }

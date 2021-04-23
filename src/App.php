@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Acme\CommissionTask;
 
+use Exception;
+
 class App
 {
     /**
@@ -31,7 +33,7 @@ class App
      */
     public static function get(string $key)
     {
-        if ( ! array_key_exists($key, static::$registry)) {
+        if (!array_key_exists($key, static::$registry)) {
             throw new Exception("No {$key} is bound in the container.");
         }
 

@@ -21,9 +21,9 @@ App::bind(
 $exchangeRatesAPIClass = (App::get('config'))['exchange_rates_api_driver'];
 App::bind(
     'exchange_rates',
-    new $exchangeRatesAPIClass(
+    (new $exchangeRatesAPIClass(
         App::get('config')['exchange_rates_api_url'],
         App::get('config')['exchange_rates_api_endpoint'],
         App::get('config')['exchange_rates_api_key']
-    )
+    ))->getRates()
 );
