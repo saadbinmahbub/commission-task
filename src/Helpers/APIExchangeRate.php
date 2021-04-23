@@ -6,7 +6,7 @@ namespace Acme\CommissionTask\Helpers;
 
 use Acme\CommissionTask\App;
 
-class APICurrencyExchangeRate implements CurrencyExchangeRate
+class APIExchangeRate implements ExchangeRate
 {
     protected $url;
     protected $accessKey;

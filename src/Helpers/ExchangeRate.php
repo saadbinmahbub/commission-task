@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Acme\CommissionTask\Helpers;
 
 
-interface CurrencyExchangeRate
+interface ExchangeRate
 {
     public function getRates(): array;
 }

@@ -49,7 +49,7 @@ return [
     |
     */
     'exchange_rates' => [
-        'driver' => 'Acme\CommissionTask\Helpers\APICurrencyExchangeRate',
+        'driver' => 'Acme\CommissionTask\Helpers\APIExchangeRate',
         'url' => 'http://api.exchangeratesapi.io/v1/',
         'endpoint' => 'latest',
         'key' => '3e21f78269b8c12dea3a824dba5f6af9',
