@@ -14,11 +14,11 @@ class APICurrencyExchangeRate implements CurrencyExchangeRate
     protected $baseCurrency;
     protected $supportedCurrencies;
 
-    public function __construct($url, $endpoint, $accessKey)
+    public function __construct()
     {
-        $this->url = $url;
-        $this->accessKey = $accessKey;
-        $this->endpoint = $endpoint;
+        $this->url = App::get('config')['exchange_rates']['url'];
+        $this->accessKey = App::get('config')['exchange_rates']['key'];
+        $this->endpoint = App::get('config')['exchange_rates']['endpoint'];
         $this->baseCurrency = App::get('config')['base_currency'];
         $this->supportedCurrencies = App::get('config')['currencies'];
     }
