@@ -16,7 +16,7 @@ class ClientFactory
             case 'business':
                 return new BusinessClient();
             default:
-                throw new Exception("Client type {$clientType} not find");
+                throw new Exception("Client type {$clientType} not found");
         }
     }
 }
