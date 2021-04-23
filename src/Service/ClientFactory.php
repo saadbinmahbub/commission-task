@@ -8,7 +8,7 @@ use Exception;
 
 class ClientFactory
 {
-    public function getClient(string $clientType)
+    public function getClient(string $clientType): Client
     {
         switch ($clientType) {
             case 'private':

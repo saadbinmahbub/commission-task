@@ -11,12 +11,16 @@ class APICurrencyExchangeRate implements CurrencyExchangeRate
     protected $url;
     protected $accessKey;
     protected $endpoint;
+    protected $baseCurrency;
+    protected $supportedCurrencies;
 
     public function __construct($url, $endpoint, $accessKey)
     {
         $this->url = $url;
         $this->accessKey = $accessKey;
         $this->endpoint = $endpoint;
+        $this->baseCurrency = App::get('config')['base_currency'];
+        $this->supportedCurrencies = App::get('config')['currencies'];
     }
 
     public function getRates(): array
@@ -27,9 +31,9 @@ class APICurrencyExchangeRate implements CurrencyExchangeRate
             '?access_key=' .
             $this->accessKey .
             '&base=' .
-            App::get('config')['base_currency'] .
+            $this->baseCurrency .
             '&symbols=' .
-            implode(',', App::get('config')['currencies'])
+            $this->supportedCurrencies
         );
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
