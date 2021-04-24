@@ -39,13 +39,13 @@ class APIExchangeRateTest extends TestCase
     {
         $this->assertEquals(
             1000.00,
-            $this->apiCurrencyExchangeRate->convertToBaseCurrency($this->baseCurrency, 1000.00)
+            $this->apiCurrencyExchangeRate->convertFromBaseCurrency($this->baseCurrency, 1000.00)
         );
     }
 
     public function testThrowsExceptionIfCurrencyIsNotSupportedInConvertToBaseCurrency()
     {
         $this->expectException(Exception::class);
-        $this->apiCurrencyExchangeRate->convertToBaseCurrency('ZZZ', 1000.00);
+        $this->apiCurrencyExchangeRate->convertFromBaseCurrency('ZZZ', 1000.00);
     }
 }
