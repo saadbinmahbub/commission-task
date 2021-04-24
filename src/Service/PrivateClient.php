@@ -36,21 +36,24 @@ class PrivateClient extends Client
         }
         $sumPreviousTransactionsInBaseCurrency = 0;
         foreach ($filteredTransactions as $filteredTransaction) {
-            $sumPreviousTransactionsInBaseCurrency += (float)$this->exchangeRate->convert(
-                App::get('config')['base_currency'],
+            $sumPreviousTransactionsInBaseCurrency += $this->exchangeRate->convertToBaseCurrency(
+                $filteredTransaction->getCurrency(),
                 $filteredTransaction->getAmount()
             );
         }
-        var_dump($sumPreviousTransactionsInBaseCurrency);
-        // Client already crossed free transaction amount
+        $convertedAmount = $this->exchangeRate->convertToBaseCurrency(
+            $transaction->getCurrency(),
+            $transaction->getAmount()
+        );
+        // Check $sumPreviousTransactionsInBaseCurrency > 1000 ? return commission on current amount
         if ($sumPreviousTransactionsInBaseCurrency > $this->weeklyWithdrawalAmount) {
             return $transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100;
         } else {
-//            $commissionable = ($sumPreviousTransactions + $transaction->getAmount()) - $this->exchangeRate->convert(
-//                    $transaction->getCurrency(),
-//                    $this->weeklyWithdrawalAmount
-//                );
-//            return $commissionable > 0 ? $commissionable * $this->withdrawalCommissionFeeRate / 100 : 0.0;
+            $sum = $sumPreviousTransactionsInBaseCurrency + $convertedAmount;
+            if ($sum > $this->weeklyWithdrawalAmount) {
+                $commissionable = $sum - $this->weeklyWithdrawalAmount;
+                return $commissionable * $this->withdrawalCommissionFeeRate / 100;
+            }
         }
         return 0.0;
     }

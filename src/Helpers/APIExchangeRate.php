@@ -46,16 +46,16 @@ class APIExchangeRate implements ExchangeRate
     }
 
     /**
-     * @param $to
+     * @param $from
      * @param $amount
      * @return float
-     * @throws \Exception
+     * @throws Exception
      */
-    public function convert($to, $amount): float
+    public function convertToBaseCurrency($from, $amount): float
     {
-        if(!array_key_exists($to, $this->rates['rates'])) {
-            throw new Exception("Currency {$to} not supported");
+        if (!array_key_exists($from, $this->rates['rates'])) {
+            throw new Exception("Currency {$from} not supported");
         }
-        return $amount * $this->rates['rates'][$to];
+        return $amount / $this->rates['rates'][$from];
     }
 }
