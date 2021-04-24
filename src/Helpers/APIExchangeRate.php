@@ -46,6 +46,14 @@ class APIExchangeRate implements ExchangeRate
     }
 
     /**
+     * @param mixed $rates
+     */
+    public function setRates($rates)
+    {
+        $this->rates = $rates;
+    }
+
+    /**
      * @param $from
      * @param $amount
      * @return float
