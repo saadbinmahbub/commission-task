@@ -1,18 +1,18 @@
 # Commission Fee Calculation
-##Install Application
+## Install Application
 `composer install`
-##Run tests
+## Run tests
 `composer run test`
-##Run the system
+## Run the system
 `php index.php transactions.csv`
 
 `transactions.csv` is a csv file provided with the `src` 
 
-##Description
+## Description
 ###`config.php`
 The `config.php` class contains various configurations of the application
 eg: base currency can be changed from here.
-Imrovement: the configurations can be pulled from a `.env` file for security
+Improvements: the configurations can be pulled from a `.env` file for security
 ### Clients
 The system has 2 types of Clients `BusinessClient` and `PrivateClient`,
 both classes inherit from the `Client` class.
