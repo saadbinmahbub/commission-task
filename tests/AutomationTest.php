@@ -12,7 +12,7 @@ class AutomationTest extends TestCase
     {
         $argv[1] = 'transactions.csv';
         $commissions = require 'index.php';
-        $this->assertEquals(13, count($commissions));
+        $this->assertCount(13, $commissions);
         foreach ($commissions as $commission) {
             $this->assertGreaterThanOrEqual(0, $commission);
         }

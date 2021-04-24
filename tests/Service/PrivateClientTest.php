@@ -48,6 +48,14 @@ class PrivateClientTest extends TestCase
         $this->assertEquals('0.3', $commission);
     }
 
+    public function testCalculateWithdrawalCommissionFeeMoreThanMaxLimitAndMoreThanMaxAmount()
+    {
+        $commission = $this->client->calculateWithdrawalCommissionFee(
+            new Transaction(['2016-03-01', 1, 'private', 'withdraw', 800.00, 'USD'], 17)
+        );
+        $this->assertEquals('2.4', $commission);
+    }
+
     public function testCalculateWithdrawalCommissionFeeForFirstWithdrawalAmountMoreThanMaxWithdrawalAmount()
     {
         $commission = $this->client->calculateWithdrawalCommissionFee(

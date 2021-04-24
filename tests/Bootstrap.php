@@ -63,6 +63,7 @@ class Bootstrap
                 new Transaction(['2016-03-01', 1, 'private', 'withdraw', 100.00, 'USD'], 14),
                 new Transaction(['2016-03-01', 1, 'private', 'withdraw', 100.00, 'USD'], 15),
                 new Transaction(['2016-03-01', 1, 'private', 'withdraw', 100.00, 'USD'], 16),
+                new Transaction(['2016-03-01', 1, 'private', 'withdraw', 800.00, 'USD'], 17),
             ]
         );
     }
