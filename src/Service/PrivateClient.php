@@ -53,7 +53,10 @@ class PrivateClient extends Client
             $sum = $sumPreviousTransactionsInBaseCurrency + $convertedAmount;
             if ($sum > $this->weeklyWithdrawalAmount) {
                 $commissionable = $sum - $this->weeklyWithdrawalAmount;
-                $convertedComissionable = $this->exchangeRate->convertFromBaseCurrency($transaction->getCurrency(), $commissionable);
+                $convertedComissionable = $this->exchangeRate->convertFromBaseCurrency(
+                    $transaction->getCurrency(),
+                    $commissionable
+                );
                 return Math::roundUp($convertedComissionable * $this->withdrawalCommissionFeeRate / 100, 2);
             }
         }

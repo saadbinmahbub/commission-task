@@ -20,10 +20,10 @@ class Transaction
     {
         $this->id = $id;
         $this->date = $transaction[0];
-        $this->client = (int) $transaction[1];
+        $this->client = (int)$transaction[1];
         $this->clientType = $transaction[2];
         $this->operation = $transaction[3];
-        $this->amount = (float) $transaction[4];
+        $this->amount = (float)$transaction[4];
         $this->currency = $transaction[5];
     }
 
