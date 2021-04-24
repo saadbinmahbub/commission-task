@@ -28,11 +28,18 @@ class PrivateClient extends Client
     public function calculateWithdrawalCommissionFee(Transaction $transaction): float
     {
         $filteredTransactions = FilterTransactions::findAllWithdrawalsBefore($transaction);
-        $sum = $transaction->getAmount();
-        foreach ($filteredTransactions as $filteredTransaction) {
-            $sum += $filteredTransaction->getAmount();
+        if (count($filteredTransactions) > $this->weeklyWithdrawals) {
+            return $transaction->getAmount() * $this->depositCommissionFeeRate / 100;
         }
-        // Subtract 1000EUR from the sum of money
-        return $sum;
+        $sum = (float) $transaction->getAmount();
+        foreach ($filteredTransactions as $filteredTransaction) {
+            $sum += (float) $filteredTransaction->getAmount();
+        }
+        $sum -= App::get('exchange_rates')->convert(
+            $transaction->getCurrency(),
+            $this->weeklyWithdrawalAmount
+        );
+
+        return $sum > 0 ? $sum * $this->depositCommissionFeeRate / 100 : 0.0;
     }
 }
