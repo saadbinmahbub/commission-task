@@ -7,6 +7,7 @@ namespace Acme\CommissionTask\Helpers;
 use Acme\CommissionTask\App;
 use Acme\CommissionTask\Service\Transaction;
 use Carbon\Carbon;
+use Exception;
 
 class FilterTransactions
 {
@@ -15,7 +16,7 @@ class FilterTransactions
      * that the users made in the week of $currentTransaction
      * @param Transaction $currentTransaction
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     public static function findAllWithdrawalsBefore(Transaction $currentTransaction): array
     {
