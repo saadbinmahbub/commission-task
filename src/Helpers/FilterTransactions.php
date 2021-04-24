@@ -16,13 +16,13 @@ class FilterTransactions
 //    {
 //        $this->transactions = App::get('transactions');
 //    }
-    public static function findAllWithdrawalsBefore(Transaction $currentTransaction, int $currentIndex): array
+    public static function findAllWithdrawalsBefore(Transaction $currentTransaction): array
     {
         $transactions = App::get('transactions');
         return array_filter(
             $transactions,
-            function ($transaction, $index) use ($currentTransaction, $currentIndex) {
-                return $currentIndex > $index &&
+            function ($transaction, $index) use ($currentTransaction) {
+                return $currentTransaction->getId() > $index &&
                     $transaction->getOperation = 'withdraw' &&
                         $transaction->getClient() == $currentTransaction->getClient() &&
                         (Carbon::create($currentTransaction->getDate()))

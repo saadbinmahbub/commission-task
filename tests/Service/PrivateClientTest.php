@@ -24,7 +24,7 @@ class PrivateClientTest extends TestCase
 
     public function testCalculateDepositCommissionFee()
     {
-        $transaction = new Transaction(['2014-12-31', 4, 'private', 'deposit', 1200.00, 'EUR']);
+        $transaction = new Transaction(['2014-12-31', 4, 'private', 'deposit', 1200.00, 'EUR'], 0);
         $commissionFee = $this->client->calculateDepositCommissionFee($transaction);
         $this->assertSame(
             $transaction->getAmount() * $this->depositCommissionFeeRate / 100,

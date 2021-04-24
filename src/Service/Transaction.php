@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Acme\CommissionTask\Service;
 
+use Acme\CommissionTask\App;
+
 class Transaction
 {
+    private $id;
     protected $date;
     protected $client;
     protected $clientType;
@@ -13,14 +16,23 @@ class Transaction
     protected $amount;
     protected $currency;
 
-    public function __construct($transaction)
+    public function __construct($transaction, int $id)
     {
+        $this->id = $id;
         $this->date = $transaction[0];
         $this->client = $transaction[1];
         $this->clientType = $transaction[2];
         $this->operation = $transaction[3];
         $this->amount = $transaction[4];
         $this->currency = $transaction[5];
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     /**
@@ -117,5 +129,10 @@ class Transaction
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+    }
+
+    public function isBaseCurrency(): bool
+    {
+        return $this->getCurrency() === App::get('config')['base_currency'];
     }
 }
