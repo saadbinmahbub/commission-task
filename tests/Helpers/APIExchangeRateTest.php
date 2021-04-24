@@ -12,22 +12,38 @@ use PHPUnit\Framework\TestCase;
 class APIExchangeRateTest extends TestCase
 {
     private $apiCurrencyExchangeRate;
+    private $baseCurrency;
 
     public function setUp()
     {
         App::bind('config', require './src/config.php');
         $this->apiCurrencyExchangeRate = (new APIExchangeRate())->getRates();
+        $this->baseCurrency = App::get('config')['base_currency'];
     }
 
     public function testConvertsBaseCurrency()
     {
         $this->assertEquals(
             1000.00,
-            $this->apiCurrencyExchangeRate->convertToBaseCurrency('EUR', 1000.00)
+            $this->apiCurrencyExchangeRate->convertToBaseCurrency($this->baseCurrency, 1000.00)
         );
     }
 
-    public function testThrowsExceptionIfCurrencyIsNotSupported()
+    public function testThrowsExceptionIfCurrencyIsNotSupportedInConvertFromBaseCurrency()
+    {
+        $this->expectException(Exception::class);
+        $this->apiCurrencyExchangeRate->convertToBaseCurrency('ZZZ', 1000.00);
+    }
+
+    public function testConvertFromBaseCurrency()
+    {
+        $this->assertEquals(
+            1000.00,
+            $this->apiCurrencyExchangeRate->convertToBaseCurrency($this->baseCurrency, 1000.00)
+        );
+    }
+
+    public function testThrowsExceptionIfCurrencyIsNotSupportedInConvertToBaseCurrency()
     {
         $this->expectException(Exception::class);
         $this->apiCurrencyExchangeRate->convertToBaseCurrency('ZZZ', 1000.00);
