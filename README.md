@@ -12,6 +12,7 @@
 ###`config.php`
 The `config.php` class contains various configurations of the application
 eg: base currency can be changed from here.
+Imrovement: the configurations can be pulled from a `.env` file for security
 ### Clients
 The system has 2 types of Clients `BusinessClient` and `PrivateClient`,
 both classes inherit from the `Client` class.
@@ -27,5 +28,7 @@ The `bootstrap.php` class binds dependencies of the application using `App` clas
 Dependencies bound to the application:
 1. `config.php`
 2. The transactions are parsed from the `csv`
-3. `APIExchangeRate` object 
+3. `APIExchangeRate` object
+
+
 
