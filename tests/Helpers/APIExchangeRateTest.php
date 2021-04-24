@@ -14,7 +14,7 @@ class APIExchangeRateTest extends TestCase
 
     public function setUp()
     {
-        App::bind('config', require './src/Config.php');
+        App::bind('config', require './src/config.php');
         $this->apiCurrencyExchangeRate = new APIExchangeRate();
     }
 

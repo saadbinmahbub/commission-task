@@ -23,12 +23,12 @@ class FilterTransactions
             $transactions,
             function ($transaction, $index) use ($currentTransaction) {
                 return $currentTransaction->getId() > $index &&
-                    $transaction->getOperation = 'withdraw' &&
+                    $transaction->getOperation() == 'withdraw' &&
                         $transaction->getClient() == $currentTransaction->getClient() &&
-                        (Carbon::create($currentTransaction->getDate()))
-                            ->startOfWeek()->add(2, 'days')->eq(
-                                Carbon::create($transaction->getDate())->startOfWeek()->add(2, 'days')
-                            );
+                    // Check if the transactions are in the same week
+                    Carbon::parse($currentTransaction->getDate())->startOfWeek()->eq(
+                        Carbon::parse($transaction->getDate())->startOfWeek()
+                    );
             },
             ARRAY_FILTER_USE_BOTH
         );

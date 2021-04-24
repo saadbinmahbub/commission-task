@@ -20,10 +20,10 @@ class Transaction
     {
         $this->id = $id;
         $this->date = $transaction[0];
-        $this->client = $transaction[1];
+        $this->client = (int) $transaction[1];
         $this->clientType = $transaction[2];
         $this->operation = $transaction[3];
-        $this->amount = $transaction[4];
+        $this->amount = (float) $transaction[4];
         $this->currency = $transaction[5];
     }
 
@@ -52,7 +52,7 @@ class Transaction
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getClient()
     {
@@ -60,9 +60,9 @@ class Transaction
     }
 
     /**
-     * @param mixed $client
+     * @param int $client
      */
-    public function setClient($client)
+    public function setClient(int $client)
     {
         $this->client = $client;
     }
