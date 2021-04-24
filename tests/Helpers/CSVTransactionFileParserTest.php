@@ -6,6 +6,7 @@ namespace Acme\CommissionTask\Tests\Helpers;
 
 use Acme\CommissionTask\Helpers\CSVTransactionFileParser;
 use Acme\CommissionTask\Service\Transaction;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class CSVTransactionFileParserTest extends TestCase
@@ -39,5 +40,11 @@ class CSVTransactionFileParserTest extends TestCase
     {
         $transactions = $this->csvTransactionFileParser->parse($this->csvFile);
         $this->assertEquals($this->expectedTransactionArray, $transactions);
+    }
+
+    public function testThrowsExceptionIfFileNotFound()
+    {
+        $this->expectException(Exception::class);
+        $this->csvTransactionFileParser->parse('FileNotFoundExceptionTest.csv');
     }
 }
