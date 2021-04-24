@@ -32,7 +32,7 @@ class PrivateClient extends Client
     {
         $filteredTransactions = FilterTransactions::findAllWithdrawalsBefore($transaction);
         // More than 3 transactions
-        if (count($filteredTransactions) > $this->weeklyWithdrawals) {
+        if (count($filteredTransactions) > $this->weeklyWithdrawals - 1) {
             return Math::roundUp($transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100, 2);
         }
         $sumPreviousTransactionsInBaseCurrency = 0;

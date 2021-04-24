@@ -62,7 +62,11 @@ class PrivateClientTest extends TestCase
                 new Transaction(['2016-01-10', 2, 'business', 'deposit', 10000.00, 'EUR'], 9),
                 new Transaction(['2016-01-10', 3, 'private', 'withdraw', 1000.00, 'EUR'], 10),
                 new Transaction(['2016-02-15', 1, 'private', 'withdraw', 300.00, 'EUR'], 11),
-                new Transaction(['2016-02-19', 5, 'private', 'withdraw', 3000000, 'JPY'], 12)
+                new Transaction(['2016-02-19', 5, 'private', 'withdraw', 3000000, 'JPY'], 12),
+                new Transaction(['2016-03-01', 1, 'private', 'withdraw', 100.00, 'USD'], 13),
+                new Transaction(['2016-03-01', 1, 'private', 'withdraw', 100.00, 'USD'], 14),
+                new Transaction(['2016-03-01', 1, 'private', 'withdraw', 100.00, 'USD'], 15),
+                new Transaction(['2016-03-01', 1, 'private', 'withdraw', 100.00, 'USD'], 16),
             ]
         );
         $api = new APIExchangeRate();
@@ -87,6 +91,14 @@ class PrivateClientTest extends TestCase
             $transaction->getAmount() * $this->depositCommissionFeeRate / 100,
             $commissionFee
         );
+    }
+
+    public function testCalculateWithdrawalCommissionFeeIfTransactionCountIsMoreThanTheLimit()
+    {
+        $commission = $this->client->calculateWithdrawalCommissionFee(
+            new Transaction(['2016-03-01', 1, 'private', 'withdraw', 100.00, 'USD'], 16)
+        );
+        $this->assertEquals('0.3', $commission);
     }
 
     public function testCalculateWithdrawalCommissionFeeForFirstWithdrawalAmountMoreThanMaxWithdrawalAmount()
