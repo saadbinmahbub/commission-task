@@ -21,7 +21,6 @@ class BusinessClient extends Client
 
     public function calculateWithdrawalCommissionFee(Transaction $transaction): float
     {
-        // TODO: Implement calculateWithdrawalCommissionFee() method.
         return $transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100;
     }
 }

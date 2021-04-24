@@ -5,6 +5,7 @@ namespace Acme\CommissionTask\Service;
 
 
 use Acme\CommissionTask\App;
+use Acme\CommissionTask\Helpers\FilterTransactions;
 
 class PrivateClient extends Client
 {
@@ -21,7 +22,12 @@ class PrivateClient extends Client
 
     public function calculateWithdrawalCommissionFee(Transaction $transaction): float
     {
-        // TODO: Implement calculateWithdrawalCommissionFee() method.
-        return 0.0;
+        $filteredTransactions = FilterTransactions::findAllWithdrawalsBefore($transaction);
+        $sum = $transaction->getAmount();
+        foreach ($filteredTransactions as $filteredTransaction) {
+            $sum += $filteredTransaction->getAmount();
+        }
+        // Subtract 1000EUR from the sum of money
+        return $sum;
     }
 }
