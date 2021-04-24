@@ -11,7 +11,7 @@ if (defined('PHPUNIT_COMMISSION_TESTSUITE') && PHPUNIT_COMMISSION_TESTSUITE) {
 } else {
     $transactions = App::get('transactions');
     foreach ($transactions as $transaction) {
-        $client = (new ClientFactory)->getClient($transaction->getClientType());
+        $client = (new ClientFactory())->getClient($transaction->getClientType());
         if ($transaction->getOperation() == 'deposit') {
             echo $client->calculateDepositCommissionFee($transaction) . "\n";
         } else {
