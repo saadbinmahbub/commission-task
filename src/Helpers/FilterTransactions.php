@@ -10,12 +10,13 @@ use Carbon\Carbon;
 
 class FilterTransactions
 {
-//    private $transactions;
-//
-//    public function __construct()
-//    {
-//        $this->transactions = App::get('transactions');
-//    }
+    /**
+     * Return an array of withdrawal transactions
+     * that the users made in the week of $currentTransaction
+     * @param Transaction $currentTransaction
+     * @return array
+     * @throws \Exception
+     */
     public static function findAllWithdrawalsBefore(Transaction $currentTransaction): array
     {
         $transactions = App::get('transactions');
@@ -24,7 +25,7 @@ class FilterTransactions
             function ($transaction, $index) use ($currentTransaction) {
                 return $currentTransaction->getId() > $index &&
                     $transaction->getOperation() == 'withdraw' &&
-                        $transaction->getClient() == $currentTransaction->getClient() &&
+                    $transaction->getClient() == $currentTransaction->getClient() &&
                     // Check if the transactions are in the same week
                     Carbon::parse($currentTransaction->getDate())->startOfWeek()->eq(
                         Carbon::parse($transaction->getDate())->startOfWeek()

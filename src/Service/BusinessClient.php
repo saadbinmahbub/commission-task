@@ -17,11 +17,17 @@ class BusinessClient extends Client
 
     public function calculateDepositCommissionFee(Transaction $transaction): float
     {
-        return Math::roundUp($transaction->getAmount() * $this->depositCommissionFeeRate / 100, 2);
+        return Math::roundUp(
+            $transaction->getAmount() * $this->depositCommissionFeeRate / 100,
+            2
+        );
     }
 
     public function calculateWithdrawalCommissionFee(Transaction $transaction): float
     {
-        return Math::roundUp($transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100, 2);
+        return Math::roundUp(
+            $transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100,
+            2
+        );
     }
 }
