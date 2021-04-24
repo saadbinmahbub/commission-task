@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Acme\CommissionTask\Helpers;
 
 use Acme\CommissionTask\App;
+use Exception;
 
 class APIExchangeRate implements ExchangeRate
 {
@@ -13,6 +14,7 @@ class APIExchangeRate implements ExchangeRate
     protected $endpoint;
     protected $baseCurrency;
     protected $supportedCurrencies;
+    protected $rates;
 
     public function __construct()
     {
@@ -23,7 +25,7 @@ class APIExchangeRate implements ExchangeRate
         $this->supportedCurrencies = App::get('config')['currencies'];
     }
 
-    public function getRates(): array
+    public function getRates(): ExchangeRate
     {
         $ch = curl_init(
             $this->url .
@@ -39,6 +41,21 @@ class APIExchangeRate implements ExchangeRate
 
         $json = curl_exec($ch);
         curl_close($ch);
-        return json_decode($json, true);
+        $this->rates = json_decode($json, true);
+        return $this;
+    }
+
+    /**
+     * @param $to
+     * @param $amount
+     * @return float
+     * @throws \Exception
+     */
+    public function convert($to, $amount): float
+    {
+        if(!array_key_exists($to, $this->rates['rates'])) {
+            throw new Exception("Currency {$to} not supported");
+        }
+        return $amount * $this->rates['rates'][$to];
     }
 }

@@ -7,5 +7,5 @@ namespace Acme\CommissionTask\Helpers;
 
 interface ExchangeRate
 {
-    public function getRates(): array;
+    public function getRates(): ExchangeRate;
 }
