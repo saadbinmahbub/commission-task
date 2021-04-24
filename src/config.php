@@ -66,7 +66,9 @@ return [
     */
     'private' => [
         'deposit_rate' => 0.03,
-        'withdrawal_rate' => 0.3
+        'withdrawal_rate' => 0.3,
+        'weekly_withdrawal_amount' => 1000,
+        'weekly_withdrawals' => 3
     ],
     'business' => [
         'deposit_rate' => 0.03,
