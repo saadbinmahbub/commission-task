@@ -7,6 +7,7 @@ namespace Acme\CommissionTask\Tests\Service;
 use Acme\CommissionTask\Service\BusinessClient;
 use Acme\CommissionTask\Service\ClientFactory;
 use Acme\CommissionTask\Service\PrivateClient;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class ClientFactoryTest extends TestCase
@@ -28,6 +29,12 @@ class ClientFactoryTest extends TestCase
     {
         $businessClient = $this->clientFactory->getClient('private');
         $this->assertInstanceOf(PrivateClient::class, $businessClient);
+    }
+
+    public function testFactoryThrowsErrorIfUnavailableClientTypeIsRequested()
+    {
+        $this->expectException(Exception::class);
+        $this->clientFactory->getClient('ZZZ');
     }
 
 }
