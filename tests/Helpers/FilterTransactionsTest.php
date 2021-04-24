@@ -6,12 +6,14 @@ namespace Acme\CommissionTask\Tests\Helpers;
 
 use Acme\CommissionTask\Helpers\FilterTransactions;
 use Acme\CommissionTask\Service\Transaction;
+use Acme\CommissionTask\Tests\Bootstrap;
 use PHPUnit\Framework\TestCase;
 
 class FilterTransactionsTest extends TestCase
 {
     public function setUp()
     {
+        (new Bootstrap())->bootstrap();
     }
 
     public function testFindsAllTransactionsBeforeAGivenTransaction()

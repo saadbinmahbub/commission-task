@@ -11,6 +11,7 @@ class PrivateClient extends Client
 {
     protected $weeklyWithdrawalAmount;
     protected $weeklyWithdrawals;
+    protected $exchangeRate;
 
     public function __construct()
     {
@@ -18,6 +19,7 @@ class PrivateClient extends Client
         $this->withdrawalCommissionFeeRate = App::get('config')['private']['withdrawal_rate'];
         $this->weeklyWithdrawalAmount = App::get('config')['private']['weekly_withdrawal_amount'];
         $this->weeklyWithdrawals = App::get('config')['private']['weekly_withdrawals'];
+        $this->exchangeRate = App::get('exchange_rates');
     }
 
     public function calculateDepositCommissionFee(Transaction $transaction): float
@@ -28,18 +30,28 @@ class PrivateClient extends Client
     public function calculateWithdrawalCommissionFee(Transaction $transaction): float
     {
         $filteredTransactions = FilterTransactions::findAllWithdrawalsBefore($transaction);
+        // More than 3 transactions
         if (count($filteredTransactions) > $this->weeklyWithdrawals) {
-            return $transaction->getAmount() * $this->depositCommissionFeeRate / 100;
+            return $transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100;
         }
-        $sum = (float) $transaction->getAmount();
+        $sumPreviousTransactionsInBaseCurrency = 0;
         foreach ($filteredTransactions as $filteredTransaction) {
-            $sum += (float) $filteredTransaction->getAmount();
+            $sumPreviousTransactionsInBaseCurrency += (float)$this->exchangeRate->convert(
+                App::get('config')['base_currency'],
+                $filteredTransaction->getAmount()
+            );
         }
-        $sum -= App::get('exchange_rates')->convert(
-            $transaction->getCurrency(),
-            $this->weeklyWithdrawalAmount
-        );
-
-        return $sum > 0 ? $sum * $this->depositCommissionFeeRate / 100 : 0.0;
+        var_dump($sumPreviousTransactionsInBaseCurrency);
+        // Client already crossed free transaction amount
+        if ($sumPreviousTransactionsInBaseCurrency > $this->weeklyWithdrawalAmount) {
+            return $transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100;
+        } else {
+//            $commissionable = ($sumPreviousTransactions + $transaction->getAmount()) - $this->exchangeRate->convert(
+//                    $transaction->getCurrency(),
+//                    $this->weeklyWithdrawalAmount
+//                );
+//            return $commissionable > 0 ? $commissionable * $this->withdrawalCommissionFeeRate / 100 : 0.0;
+        }
+        return 0.0;
     }
 }

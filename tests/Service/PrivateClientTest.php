@@ -8,6 +8,7 @@ namespace Acme\CommissionTask\Tests\Service;
 use Acme\CommissionTask\App;
 use Acme\CommissionTask\Service\ClientFactory;
 use Acme\CommissionTask\Service\Transaction;
+use Acme\CommissionTask\Tests\Bootstrap;
 use PHPUnit\Framework\TestCase;
 
 class PrivateClientTest extends TestCase
@@ -17,7 +18,7 @@ class PrivateClientTest extends TestCase
 
     public function setUp()
     {
-        App::bind('config', require './src/config.php');
+        (new Bootstrap())->bootstrap();
         $this->client = (new ClientFactory())->getClient('private');
         $this->depositCommissionFeeRate = App::get('config')['private']['deposit_rate'];
     }
