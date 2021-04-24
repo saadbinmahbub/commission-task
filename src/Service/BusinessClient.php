@@ -5,6 +5,7 @@ namespace Acme\CommissionTask\Service;
 
 
 use Acme\CommissionTask\App;
+use Acme\CommissionTask\Helpers\Math;
 
 class BusinessClient extends Client
 {
@@ -16,11 +17,11 @@ class BusinessClient extends Client
 
     public function calculateDepositCommissionFee(Transaction $transaction): float
     {
-        return $transaction->getAmount() * $this->depositCommissionFeeRate / 100;
+        return Math::roundUp($transaction->getAmount() * $this->depositCommissionFeeRate / 100, 2);
     }
 
     public function calculateWithdrawalCommissionFee(Transaction $transaction): float
     {
-        return $transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100;
+        return Math::roundUp($transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100, 2);
     }
 }

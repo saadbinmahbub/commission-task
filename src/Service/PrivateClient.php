@@ -6,6 +6,7 @@ namespace Acme\CommissionTask\Service;
 
 use Acme\CommissionTask\App;
 use Acme\CommissionTask\Helpers\FilterTransactions;
+use Acme\CommissionTask\Helpers\Math;
 
 class PrivateClient extends Client
 {
@@ -24,7 +25,7 @@ class PrivateClient extends Client
 
     public function calculateDepositCommissionFee(Transaction $transaction): float
     {
-        return $transaction->getAmount() * $this->depositCommissionFeeRate / 100;
+        return Math::roundUp($transaction->getAmount() * $this->depositCommissionFeeRate / 100, 2);
     }
 
     public function calculateWithdrawalCommissionFee(Transaction $transaction): float
@@ -32,7 +33,7 @@ class PrivateClient extends Client
         $filteredTransactions = FilterTransactions::findAllWithdrawalsBefore($transaction);
         // More than 3 transactions
         if (count($filteredTransactions) > $this->weeklyWithdrawals) {
-            return $transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100;
+            return Math::roundUp($transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100, 2);
         }
         $sumPreviousTransactionsInBaseCurrency = 0;
         foreach ($filteredTransactions as $filteredTransaction) {
@@ -47,13 +48,13 @@ class PrivateClient extends Client
         );
         // Check $sumPreviousTransactionsInBaseCurrency > 1000 ? return commission on current amount
         if ($sumPreviousTransactionsInBaseCurrency > $this->weeklyWithdrawalAmount) {
-            return $transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100;
+            return Math::roundUp($transaction->getAmount() * $this->withdrawalCommissionFeeRate / 100, 2);
         } else {
             $sum = $sumPreviousTransactionsInBaseCurrency + $convertedAmount;
             if ($sum > $this->weeklyWithdrawalAmount) {
                 $commissionable = $sum - $this->weeklyWithdrawalAmount;
                 $convertedComissionable = $this->exchangeRate->convertFromBaseCurrency($transaction->getCurrency(), $commissionable);
-                return $convertedComissionable * $this->withdrawalCommissionFeeRate / 100;
+                return Math::roundUp($convertedComissionable * $this->withdrawalCommissionFeeRate / 100, 2);
             }
         }
         return 0.0;
