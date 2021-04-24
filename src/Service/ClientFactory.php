@@ -8,6 +8,11 @@ use Exception;
 
 class ClientFactory
 {
+    /**
+     * @param string $clientType
+     * @return Client
+     * @throws Exception
+     */
     public function getClient(string $clientType): Client
     {
         switch ($clientType) {

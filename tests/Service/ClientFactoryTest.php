@@ -34,7 +34,7 @@ class ClientFactoryTest extends TestCase
     public function testFactoryThrowsErrorIfUnavailableClientTypeIsRequested()
     {
         $this->expectException(Exception::class);
-        $this->clientFactory->getClient('ZZZ');
+        $this->clientFactory->getClient('ClientTypeNotFound');
     }
 
 }
